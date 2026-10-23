@@ -1,0 +1,4 @@
+$nama = []
+$kelas = []
+$nilai = []
+$error = []
