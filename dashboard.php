@@ -71,31 +71,57 @@ if (!isset($_SESSION['username'])) {
                     echo "<td>" . htmlspecialchars($siswa->kelas) . "</td>";
                     echo "<td>" . htmlspecialchars($siswa->getNilai()) . "</td>";
                     echo "<td>" . htmlspecialchars($siswa->predikat()) . "</td>";
-                    echo "<td>" . ($siswa->lulus() ? "Lulus" : "Tidak Lulus") . "</td>";
+                    echo "<td>" . ($siswa->lulus() ? "Lulus" : "Remedial") . "</td>";
                     echo "</tr>";
                 }
             } else {
                 echo "<tr><td colspan='6'>Tidak ada data siswa.</td></tr>";
             }
 
-            $semua_nilai = [];
-            if (isset($_SESSIAON['data_siswa']) && is_array($_SESSION['data_siswa'])) {
-                foreach ($_SESSION['data_siswa'] as $d) {
-                    $semua_nilai[] = $d['nilai'];
-                }
-            }
-            if (!empty($semua_nilai)) {
-                $nilaiTertinggi = max($semua_nilai);
-                $nilaiTerendah = min($semua_nilai);
-                $rata_rata = array_sum($semua_nilai) / count($semua_nilai);
+            $data = $_SESSION['data_siswa'] ?? [];
+            $totalSiswa = count($data);
+            $nilaikolom = array_column($data, 'nilai');
+
+            if ($totalSiswa > 0) {
+                $rataRata = array_sum($nilaikolom) / count($nilaikolom);
+                $inMax = array_search(max($nilaikolom), $nilaikolom);
+                $inMin = array_search(min($nilaikolom), $nilaikolom);
+                
+                $namaTertinggi = $data[$inMax]['nama'];
+                $namaTerendah = $data[$inMin]['nama'];
+                $nilaiTertinggi = max($nilaikolom);
+                $nilaiTerendah = min($nilaikolom);
+
             } else {
-                $nilaiTertinggi = 0;
-                $nilaiTerendah = 0;
-                $rata_rata = 0;
+                $rata_rata = $nilaiTertinggi = $nilaiTerendah = 0;
+                $namaTertinggi = $namaTerendah = "-";
             }
+
+            $remedial = array_filter($data, function ($s) {
+                return $s['nilai'] < 75;
+            });
             ?>
 
         </tbody>
+    </table>
+    <h3>Statistik:</h3>
+    <ul>
+        <li>Total Siswa: <?php echo $totalSiswa; ?></li>
+        <li>Rata-rata Nilai: <?php echo number_format($rataRata, 2); ?></li>
+        <li>Nilai Tertinggi: <?php echo $nilaiTertinggi; ?> (<?php echo htmlspecialchars($namaTertinggi); ?>)</li>
+        <li>Nilai Terendah: <?php echo $nilaiTerendah; ?> (<?php echo htmlspecialchars($namaTerendah); ?>)</li>
+    </ul>
+    <h3>Siswa Remedial:</h3>
+    <ul>
+        <?php if (!empty($remedial)): ?>
+            <?php {
+            foreach ($remedial as $r): ?>{
+                <li><?php echo htmlspecialchars($r['nama']); ?> - Nilai: <?php echo $r['nilai']; ?></li>
+                <?php endforeach; ?>
+            <?php } else: ?>
+                <li>Tidak ada siswa yang perlu remedial.</li>
+            <?php endif; ?>
+    </ul>
 </body>
 
 </html>

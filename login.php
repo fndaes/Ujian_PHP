@@ -14,8 +14,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = $_POST['password'] ?? '';
 
-    if ($username === 'admin' && $password === 'admin123') {
-        $_SESSION['username'] = $username;
+    if ($username === 'admin' && $password === '1235') {
+        $_SESSION['user'] = $username;
         $_SESSION['Login_time'] = date('Y-m-d H:i:s');
         $_SESSION["data_siswa"] = [ 
     ["nama" => "Andi",  "kelas" => "11 RPL 1", "nilai" => 88], 
