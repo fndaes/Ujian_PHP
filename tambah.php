@@ -21,4 +21,7 @@ if (empty($nilai)) {
 } elseif (!is_numeric($nilai) || $nilai < 0 || $nilai > 100) {
     $error[] = "Nilai harus berupa angka antara 0 hingga 100.";
 }
+else {
+    count ($error) === 0;
+}
 ?>
