@@ -23,8 +23,8 @@ if (isset($_SESSION['username'])) {
 $error = "";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = trim($_POST['username']);
-    $password = $_POST['password'];
+    $username = trim($_POST['username'] ?? '');
+    $password = $_POST['password'] ?? '';
 
     if ($username === 'admin' && $password === 'admin123') {
         $_SESSION['username'] = $username;
@@ -42,65 +42,91 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <head>
     <meta charset="UTF-8">
-    <title>Login</title>
-</head>
-<body>
-    <h2>Login</h2>
-    <?php if ($error): ?>
-        <p style="color: red;"><?php echo $error; ?></p>
-    <?php endif; ?>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Masuk | Portal Siswa</title>
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
+            margin: 0;
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
             display: flex;
             justify-content: center;
             align-items: center;
-            height: 100vh;
+            min-height: 100vh;
         }
 
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        .login-card {
+            width: 100%;
+            max-width: 350px;
+            padding: 25px;
+            background: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px #ccc;
+        }
+
+        h1, p {
+            text-align: center;
+        }
+
+        .error-message {
+            color: red;
         }
 
         label {
             display: block;
-            margin-bottom: 5px;
+            margin: 12px 0 5px;
         }
 
-        input[type="text"],
-        input[type="password"] {
+        input {
             width: 100%;
-            padding: 8px;
-            margin-bottom: 10px;
+            padding: 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box;
         }
 
         button {
             width: 100%;
+            margin-top: 18px;
             padding: 10px;
-            background-color: #28a745;
             color: white;
-            border: none;
+            background-color: #ad8f3d;
+            border: 0;
             border-radius: 4px;
             cursor: pointer;
         }
 
         button:hover {
-            background-color: #218838;
+            background-color: #8d722e;
         }
     </style>
-    <form method="POST" action="">
-        <label for="username">Username:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        <label for="password">Password:</label>
-        <input type="password" id="password" name="password" required><br><br>
-        <button type="submit">Login</button>
-    </form>
+</head>
+<body>
+    <main class="login-card">
+        <header>
+            <h1>Selamat datang</h1>
+            <p>Masuk ke Portal Siswa untuk melanjutkan.</p>
+        </header>
+
+        <?php if ($error): ?>
+            <p class="error-message" role="alert"><?php echo htmlspecialchars($error); ?></p>
+        <?php endif; ?>
+
+        <form method="POST" action="">
+            <label for="username">Nama pengguna</label>
+            <input type="text" id="username" name="username"
+                value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
+
+            <label for="password">Kata sandi</label>
+            <input type="password" id="password" name="password" required>
+
+            <button type="submit">Masuk</button>
+        </form>
+    </main>
 </body>
 
 </html>
