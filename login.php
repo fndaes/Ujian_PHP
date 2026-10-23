@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <!DOCTYPE html>
 <html lang="id">
 
-<head></head>
+<head>
     <meta charset="UTF-8">
     <title>Login</title>
 </head>
