@@ -11,8 +11,6 @@ $judul = "Dashboard";
 require_once 'includes/header.php';
 
 require_once 'classes/siswa.php';
-
-require_once 'includes/footer.php';
 ?>
 
 <!DOCTYPE html>
@@ -133,3 +131,7 @@ require_once 'includes/footer.php';
 </body>
 
 </html>
+
+<?php
+require_once 'includes/footer.php';
+?>
