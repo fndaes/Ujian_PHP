@@ -41,7 +41,7 @@ if (!isset($_SESSION['user'])) {
     </style>
     <h1>Dashboard</h1>
     <p>Selamat datang,
-        <strong><?php echo htmlspecialchars($_SESSION['username']); ?></strong>!
+        <strong><?php echo htmlspecialchars($_SESSION['user']); ?></strong>!
     </p>
     <p>Waktu login: <?php echo htmlspecialchars($_SESSION['Login_time']); ?></p>
     <a href="logout.php">Logout</a>
