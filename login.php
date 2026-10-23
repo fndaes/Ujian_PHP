@@ -43,11 +43,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <title>Login</title>
 </head>
 <body>
-    <h2>Login</h2>
     <?php if ($error): ?>
         <p style="color: red;"><?php echo $error; ?></p>
     <?php endif; ?>
+    <h1>Login</h1>
     <style>
+        h1 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
         body {
             font-family: Arial, sans-serif;
             background-color: #f4f4f4;
