@@ -62,8 +62,7 @@ body {
     justify-content: center;
     align-items: center;
     background: #e7ebf0;
-    overflow: hidden;
-    scrollbar-width: 0.7;
+    overflow-x: hidden;
 }
 
 /* Background */
@@ -425,33 +424,66 @@ h1{
 .switch-circle:active{
     transform: scale(.9);
 }
+
+.error-message{
+    margin: -12px 0 18px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #fff0f0;
+    color: #c62828;
+    font-size: 13px;
+    text-align: center;
+}
+
+@media (max-height: 700px){
+    body{
+        align-items: flex-start;
+        overflow-y: auto;
+        padding: 24px 0;
+    }
+}
     </style>
 </head>
 <body>
-    <main class="login-card">
-        <header>
-            <h1>Selamat datang</h1>
-            <p class="subtitle">Masuk ke Portal Siswa untuk melanjutkan.</p>
-        </header>
+    <div class="bg-circle bg1" aria-hidden="true"></div>
+    <div class="bg-circle bg2" aria-hidden="true"></div>
+    <div class="bg-circle bg3" aria-hidden="true"></div>
 
-        <?php if ($error): ?>
-            <p class="error-message" role="alert"><?php echo htmlspecialchars($error); ?></p>
-        <?php endif; ?>
+    <main class="auth-wrapper">
+        <section class="auth-card">
+            <div class="form-panel login-panel">
+                <div class="logo" aria-hidden="true">PS</div>
+                <header>
+                    <h1>Selamat datang</h1>
+                    <p class="subtitle">Masuk ke Portal Siswa untuk melanjutkan.</p>
+                </header>
 
-        <form method="POST" action="">
-            <label for="username">Nama pengguna</label>
-            <div class="input-group">
-                <input type="text" id="username" name="username"
-                    value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
+                <?php if ($error): ?>
+                    <p class="error-message" role="alert"><?php echo htmlspecialchars($error); ?></p>
+                <?php endif; ?>
+
+                <form method="POST" action="">
+                    <div class="input-group">
+                        <span class="electric-border" aria-hidden="true"></span>
+                        <span class="electric-glow" aria-hidden="true"></span>
+                        <input type="text" id="username" name="username"
+                            value="<?php echo htmlspecialchars($username ?? ''); ?>"
+                            placeholder=" " autocomplete="username" required>
+                        <label for="username">Nama pengguna</label>
+                    </div>
+
+                    <div class="input-group">
+                        <span class="electric-border" aria-hidden="true"></span>
+                        <span class="electric-glow" aria-hidden="true"></span>
+                        <input type="password" id="password" name="password"
+                            placeholder=" " autocomplete="current-password" required>
+                        <label for="password">Kata sandi</label>
+                    </div>
+
+                    <button class="main-btn" type="submit">Masuk</button>
+                </form>
             </div>
-
-            <label for="password">Kata sandi</label>
-            <div class="input-group">
-                <input type="password" id="password" name="password" required>
-            </div>
-
-            <button type="submit">Masuk</button>
-        </form>
+        </section>
     </main>
 </body>
 
