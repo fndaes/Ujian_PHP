@@ -47,71 +47,391 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Masuk | Portal Siswa</title>
     <style>
-        * {
-            box-sizing: border-box;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
 
-        .login-card {
-            width: 100%;
-            max-width: 350px;
-            padding: 25px;
-            background: #fff;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px #ccc;
-        }
+body {
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #e7ebf0;
+    overflow: hidden;
+    scrollbar-width: 0.7;
+}
 
-        h1, p {
-            text-align: center;
-        }
+/* Background */
+.bg-circle {
+    position: fixed;
+    border-radius: 50%;
+    background: #e7ebf0;
+    box-shadow: 15px 15px 30px rgba(163, 177, 198, .55), -15px -15px 30px rgba(255, 255, 255, .9);
+    z-index: -5;
+    animation: floating 6s ease-in-out infinite;
+}
 
-        .error-message {
-            color: red;
-        }
+.bg1 {
+    width: 190px;
+    height: 190px;
+    top: 7%;
+    left: 7%;
+}
 
-        label {
-            display: block;
-            margin: 12px 0 5px;
-        }
+.bg2 {
+    width: 130px;
+    height: 130px;
+    right: 8%;
+    bottom: 8%;
+    animation-delay: 1.5s;
+}
 
-        input {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
+.bg3 {
+    width: 55px;
+    height: 55px;
+    right: 20%;
+    top: 22%;
+    animation-delay: 3s;
+}
 
-        button {
-            width: 100%;
-            margin-top: 18px;
-            padding: 10px;
-            color: white;
-            background-color: #ad8f3d;
-            border: 0;
-            border-radius: 4px;
-            cursor: pointer;
-        }
+@keyframes floating {
 
-        button:hover {
-            background-color: #8d722e;
-        }
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-18px);
+    }
+}
+
+.auth-wrapper {
+    width: 400px;
+    max-width: 92%;
+    perspective: 1600px;
+}
+
+.auth-card {
+    position: relative;
+    width: 100%;
+    min-height: 610px;
+    transform-style: preserve-3d;
+    transition: transform 1s cubic-bezier(.68, -0.55, .27, 1.55);
+}
+
+.auth-card.flipped {
+    transform: rotateY(180deg);
+}
+
+.form-panel {
+    position: absolute;
+    inset: 0;
+    padding: 40px 38px;
+    border-radius: 35px;
+    background: #e7ebf0;
+    box-shadow: 20px 20px 40px rgba(163, 177, 198, .65), -20px -20px 40px rgba(255, 255, 255, .95);
+    backface-visibility: hidden;
+}
+
+.signup-panel{
+    transform: rotateY(180deg);
+}
+/* logo */
+.logo{
+    width: 86px;
+    height: 86px;
+    margin: 0 auto 18px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    font-size: 30px;
+    color: #087cff;
+    background: #e7ebf0;
+    box-shadow: 9px 9px 18px rgba(163, 177, 198, .65), -9px -9px 18px rgba(255, 255, 255, .95);
+    transition: 0.4s ease;
+}
+.logo:hover{
+    transform: translateY(-5px) rotate(8deg);
+}
+
+h1{
+    text-align: center;
+    font-size: 27px;
+    color: #303943;
+    margin-bottom: 7px;
+}
+
+.subtitle{
+    text-align: center;
+    color: #7c858e;
+    font-size: 13px;
+    margin-bottom: 30px;
+}
+
+.input-group{
+    position: relative;
+    width: 100%;
+    height: 58px;
+    margin-bottom: 19px;
+}
+
+.electric-border{
+    position: absolute;
+    inset: -2px;
+    border-radius: 19px;
+    overflow: hidden;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity .2s ease;
+}
+
+.electric-border::before{
+    content: "";
+    position: absolute;
+    width: 170%;
+    height: 170%;
+    left: -35%;
+    top: -35%;
+    background: conic-gradient(
+        from 0deg,
+        transparent 0deg,
+        transparent 30deg,
+        #00eaff 45deg,
+        #00aaff 65deg,
+        #006cff 80deg,
+        transparent 105deg,
+        transparent 360deg
+    );
+    animation: electricRotate 1.1s linear infinite;
+}
+
+.electric-border::after{
+    content: "";
+    position: absolute;
+    inset: 2px;
+    border-radius: 17px;
+    background: #e7ebf0;
+}
+
+.electric-glow{
+    position: absolute;
+    inset: -4px;
+    border-radius: 21px;
+    pointer-events: none;
+    opacity: 0;
+    filter: blur(7px);
+}
+.input-group:focus-within .electric-border{
+    opacity: 1;
+}
+
+.input-group:focus-within .electric-glow{
+    opacity: .55;
+    animation: electricRotate 1.1s linear infinite;
+}
+
+@keyframes electricRotate{
+    from{
+        transform: rotate(0deg);
+    }
+    to{
+        transform: rotate(360deg);
+    }
+}
+
+.input-group input{
+    position: absolute;
+    inset: 2px;
+    width: calc(100% - 4px);
+    height: 54px;
+    border: none;
+    outline: none;
+    border-radius: 16px;
+    background: #e7ebf0;
+    color: #303943;
+    font-size: 15px;
+    padding: 0 48px 0 18px;
+    z-index: 20;
+    box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
+    transition: box-shadow .25s ease;
+}
+
+.input-group input:focus{
+    box-shadow: inset 3px 3px 7px rgba(163, 177, 198, .55), inset -3px -3px 7px rgba(255, 255, 255, .95);
+}
+
+.input-group label{
+    position: absolute;
+    left: 18px;
+    top: 20px;
+    z-index: 30;
+    color: #89929c;
+    font-size: 16px;
+    pointer-events: none;
+    transition: all .25s ease;
+}
+
+.input-group input:focus + label,
+.input-group input:not(:placeholder-shown) + label{
+    top: -8px;
+    left: 13px;
+    padding: 2px 8px;
+    border-radius: 7px;
+    background : #0072ff;
+    font-size: 10px;
+    line-height: 14px;
+    white-space: nowrap;
+}
+
+.password-toggle{
+    position: absolute;
+    right: 14px;
+    top: 15px;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    color: #7d8790;
+    cursor: pointer;
+    z-index: 40;
+    font-size: 18px;
+}
+
+.password-toggle:hover{
+    color: #006cff;
+    transform: scale(1.1);
+}
+
+.options{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 5px 3px 24px;
+    color: #7d8790;
+    font-size: 14px;
+}
+
+.checkbox{
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.checkbox input{
+    accent-color: #0072ff;
+}
+
+.options a{
+    color: #006cff;
+    text-decoration: none;
+}
+
+.main-btn{
+    position: relative;
+    isolation: isolate;
+    width: 100%;
+    height: 55px;
+    border: none;
+    border-radius: 17px;
+    background: #e7ebf0;
+    color: #006cff;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .4px;
+    cursor: pointer;
+    overflow: hidden;
+     box-shadow: 8px 8px 16px rgba(163, 177, 198, .65), -8px -8px 16px rgba(255, 255, 255, .95);
+    transition: .3s ease;
+}
+
+.main-btn::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient( 110deg, #006cff, #00cfff, #006cff);
+    background-size: 200% 100%;
+    transform: translateY(100%);
+    transition: transform .35s ease;
+    z-index: -1;
+}
+
+.main-btn:hover::before{
+    transform: translateY(0);
+    animation: buttonMove 1.5s linear infinite;
+}
+
+@keyframes buttonMove{
+    from{
+        background-position: 0 50%;
+    }
+    to{
+        background-position: 200% 50%;
+    }
+}
+
+.main-btn:hover{
+    color: #fff;
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 114, 255, .35);
+}
+
+.main-btn:active{
+    transform: scale(.97);
+}
+
+.switch-area{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 27px;
+    font-size: 12px;
+    color: #7d8790;
+}
+
+.switch-circle{
+    width: 49px;
+    height: 49px;
+    border: none;
+    border-radius: 50%;
+    background: #e7ebf0;
+    color: #0072ff;
+    font-size: 22px;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+     box-shadow: 7px 7px 14px rgba(163, 177, 198, .65), -7px -7px 14px rgba(255, 255, 255, .95);
+     transition: .35s ease;
+}
+
+.switch-circle:hover{
+    color: #fff;
+    background: #0072ff;
+    transform: rotate(180deg) scale(1.08);
+    box-shadow: 0 8px 25px rgba(0, 114, 255, .35);
+}
+
+.switch-circle:active{
+    transform: scale(.9);
+}
     </style>
 </head>
 <body>
     <main class="login-card">
         <header>
             <h1>Selamat datang</h1>
-            <p>Masuk ke Portal Siswa untuk melanjutkan.</p>
+            <p class="subtitle">Masuk ke Portal Siswa untuk melanjutkan.</p>
         </header>
 
         <?php if ($error): ?>
@@ -120,11 +440,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         <form method="POST" action="">
             <label for="username">Nama pengguna</label>
-            <input type="text" id="username" name="username"
-                value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
+            <div class="input-group">
+                <input type="text" id="username" name="username"
+                    value="<?php echo htmlspecialchars($username ?? ''); ?>" required>
+            </div>
 
             <label for="password">Kata sandi</label>
-            <input type="password" id="password" name="password" required>
+            <div class="input-group">
+                <input type="password" id="password" name="password" required>
+            </div>
 
             <button type="submit">Masuk</button>
         </form>
