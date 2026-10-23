@@ -260,10 +260,11 @@ h1{
     z-index: 20;
     box-shadow: inset 6px 6px 12px rgba(163, 177, 198, .55), inset -6px -6px 12px rgba(255, 255, 255, .95);
     transition: box-shadow .25s ease;
+    caret-color: #006cff;
 }
 
 .input-group input:focus{
-    box-shadow: inset 3px 3px 7px rgba(163, 177, 198, .55), inset -3px -3px 7px rgba(255, 255, 255, .95);
+    box-shadow: inset 3px 3px 7px rgba(163, 177, 198, .45), inset -3px -3px 7px rgba(255, 255, 255, .95), 0 0 0 2px rgba(0, 108, 255, .18);
 }
 
 .input-group label{
@@ -283,32 +284,45 @@ h1{
     left: 13px;
     padding: 2px 8px;
     border-radius: 7px;
-    background : #0072ff;
+    background: #0072ff;
+    color: #fff;
     font-size: 10px;
+    font-weight: 600;
     line-height: 14px;
     white-space: nowrap;
 }
 
+.input-group .password-input{
+    padding-right: 76px;
+}
+
 .password-toggle{
     position: absolute;
-    right: 14px;
-    top: 15px;
-    width: 28px;
-    height: 28px;
+    right: 10px;
+    top: 14px;
+    min-width: 48px;
+    height: 30px;
     display: flex;
     align-items: center;
     justify-content: center;
     border: none;
+    border-radius: 9px;
     background: transparent;
-    color: #7d8790;
+    color: #006cff;
     cursor: pointer;
     z-index: 40;
-    font-size: 18px;
+    font-size: 11px;
+    font-weight: 600;
+    transition: background .2s ease, color .2s ease;
 }
 
 .password-toggle:hover{
-    color: #006cff;
-    transform: scale(1.1);
+    background: rgba(0, 108, 255, .1);
+}
+
+.password-toggle:focus-visible{
+    outline: 2px solid #006cff;
+    outline-offset: 2px;
 }
 
 .options{
@@ -475,9 +489,11 @@ h1{
                     <div class="input-group">
                         <span class="electric-border" aria-hidden="true"></span>
                         <span class="electric-glow" aria-hidden="true"></span>
-                        <input type="password" id="password" name="password"
+                        <input class="password-input" type="password" id="password" name="password"
                             placeholder=" " autocomplete="current-password" required>
                         <label for="password">Kata sandi</label>
+                        <button class="password-toggle" type="button" aria-controls="password"
+                            aria-label="Tampilkan kata sandi" aria-pressed="false">Lihat</button>
                     </div>
 
                     <button class="main-btn" type="submit">Masuk</button>
@@ -485,6 +501,18 @@ h1{
             </div>
         </section>
     </main>
+    <script>
+        const passwordInput = document.getElementById('password');
+        const passwordToggle = document.querySelector('.password-toggle');
+
+        passwordToggle.addEventListener('click', () => {
+            const isVisible = passwordInput.type === 'text';
+            passwordInput.type = isVisible ? 'password' : 'text';
+            passwordToggle.textContent = isVisible ? 'Lihat' : 'Sembunyikan';
+            passwordToggle.setAttribute('aria-label', isVisible ? 'Tampilkan kata sandi' : 'Sembunyikan kata sandi');
+            passwordToggle.setAttribute('aria-pressed', String(!isVisible));
+        });
+    </script>
 </body>
 
 </html>
