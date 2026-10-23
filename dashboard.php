@@ -87,7 +87,7 @@ if (!isset($_SESSION['username'])) {
 
             $nilaiTertinggi = array_column($daftar, 'nilai');
             $nilaiTerendah = array_column($daftar, 'nilai');
-            $rata_rata = array_sum($nilaiTertinggi) / count($nilaiTertinggi);
+            $rata_rata = array_sum($nilaiTertinggi) / count($nilai);
             $inMax = array_search($nilaiTertinggi, array_column($daftar, 'nilai'));
             $inMin = array_search($nilaiTerendah, array_column($daftar, 'nilai'));
 

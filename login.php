@@ -1,6 +1,8 @@
 <?php
 session_start();
 
+ini_set("display_errors", 1); error_reporting(E_ALL);
+
 if (isset($_SESSION['username'])) {
     $_SESSION["data_siswa"] = [ 
     ["nama" => "Andi",  "kelas" => "11 RPL 1", "nilai" => 88], 
