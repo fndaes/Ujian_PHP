@@ -74,14 +74,14 @@ $halaman_aktif = basename($_SERVER["PHP_SELF"]);
             Dashboard
         </a>
 
-        <a href="login.php"
-           class="<?= $halaman_aktif === 'login.php' ? 'aktif' : '' ?>">
-            Login
+        <a href="tambah.php"
+           class="<?= $halaman_aktif === 'tambah.php' ? 'aktif' : '' ?>">
+            Tambah Siswa
         </a>
 
-        <a href="tambah.php"
-           class="<?= $halaman_aktif === 'tambah,php' ? 'aktif' : '' ?>">
-            Tambah
+        <a href="logout.php"
+           class="<?= $halaman_aktif === 'logout.php' ? 'aktif' : '' ?>">
+            Logout
         </a>
     </nav>
 </header>
