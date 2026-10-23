@@ -4,18 +4,6 @@ session_start();
 ini_set("display_errors", 1); error_reporting(E_ALL);
 
 if (isset($_SESSION['username'])) {
-    $_SESSION["data_siswa"] = [ 
-    ["nama" => "Andi",  "kelas" => "11 RPL 1", "nilai" => 88], 
-    ["nama" => "Budi",  "kelas" => "11 RPL 1", "nilai" => 72],  
-    ["nama" => "Citra", "kelas" => "11 RPL 2", "nilai" => 95],
-    ["nama" => "Dewi",  "kelas" => "11 RPL 2", "nilai" => 60],  
-    ["nama" => "Eko",   "kelas" => "11 RPL 3", "nilai" => 78],  
-    ["nama" => "Fajar", "kelas" => "11 RPL 3", "nilai" => 82],  
-    ["nama" => "Gita",  "kelas" => "11 RPL 4", "nilai" => 90],  
-    ["nama" => "Hadi",  "kelas" => "11 RPL 4", "nilai" => 55],  
-    ["nama" => "Intan", "kelas" => "11 RPL 5", "nilai" => 68],  
-    ["nama" => "Joko",  "kelas" => "11 RPL 5", "nilai" => 80]
-    ]; 
     header("Location: dashboard.php");
     exit();
 }
@@ -29,6 +17,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if ($username === 'admin' && $password === 'admin123') {
         $_SESSION['username'] = $username;
         $_SESSION['Login_time'] = date('Y-m-d H:i:s');
+        $_SESSION["data_siswa"] = [ 
+    ["nama" => "Andi",  "kelas" => "11 RPL 1", "nilai" => 88], 
+    ["nama" => "Budi",  "kelas" => "11 RPL 1", "nilai" => 72],  
+    ["nama" => "Citra", "kelas" => "11 RPL 2", "nilai" => 95],
+    ["nama" => "Dewi",  "kelas" => "11 RPL 2", "nilai" => 60],  
+    ["nama" => "Eko",   "kelas" => "11 RPL 3", "nilai" => 78],  
+    ["nama" => "Fajar", "kelas" => "11 RPL 3", "nilai" => 82],  
+    ["nama" => "Gita",  "kelas" => "11 RPL 4", "nilai" => 90],  
+    ["nama" => "Hadi",  "kelas" => "11 RPL 4", "nilai" => 55],  
+    ["nama" => "Intan", "kelas" => "11 RPL 5", "nilai" => 68],  
+    ["nama" => "Joko",  "kelas" => "11 RPL 5", "nilai" => 80]
+    ]; 
+    header("Location: dashboard.php");
+    exit();
         header("Location: dashboard.php");
         exit();
     } else {

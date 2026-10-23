@@ -78,24 +78,21 @@ if (!isset($_SESSION['username'])) {
                 echo "<tr><td colspan='6'>Tidak ada data siswa.</td></tr>";
             }
 
-            require_once "classes/Siswa.php";
-            $data = $_SESSION["data_siswa"] ?? [];
-            $daftar = [];
-            foreach ($data as $d) {
-                $daftar[] = new Siswa($d["nama"], $d["kelas"], $d["nilai"]);
+            $semua_nilai = [];
+            if (isset($_SESSIAON['data_siswa']) && is_array($_SESSION['data_siswa'])) {
+                foreach ($_SESSION['data_siswa'] as $d) {
+                    $semua_nilai[] = $d['nilai'];
+                }
             }
-
-            $nilaiTertinggi = array_column($daftar, 'nilai');
-            $nilaiTerendah = array_column($daftar, 'nilai');
-            $rata_rata = array_sum($nilaiTertinggi) / count($nilai);
-            $inMax = array_search($nilaiTertinggi, array_column($daftar, 'nilai'));
-            $inMin = array_search($nilaiTerendah, array_column($daftar, 'nilai'));
-
-            $data = [
-                "nilaiTertinggi" => $daftar[$inMax]->getNilai(),
-                "nilaiTerendah" => $daftar[$inMin]->getNilai(),
-                "rata_rata" => $rata_rata
-            ];
+            if (!empty($semua_nilai)) {
+                $nilaiTertinggi = max($semua_nilai);
+                $nilaiTerendah = min($semua_nilai);
+                $rata_rata = array_sum($semua_nilai) / count($semua_nilai);
+            } else {
+                $nilaiTertinggi = 0;
+                $nilaiTerendah = 0;
+                $rata_rata = 0;
+            }
             ?>
 
         </tbody>
