@@ -5,6 +5,14 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.php");
     exit();
 }
+
+$judul = "Dashboard";
+
+require_once 'includes/header.php';
+
+require_once 'classes/siswa.php';
+
+require_once 'includes/footer.php';
 ?>
 
 <!DOCTYPE html>
