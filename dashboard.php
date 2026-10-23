@@ -115,7 +115,7 @@ if (!isset($_SESSION['user'])) {
     <ul>
         <?php if (!empty($remedial)): ?>
             <?php {
-            foreach ($remedial as $r): ?>{
+            foreach ($remedial as $r): ?>
                 <li><?php echo htmlspecialchars($r['nama']); ?> - Nilai: <?php echo $r['nilai']; ?></li>
                 <?php endforeach; ?>
             <?php } else: ?>
