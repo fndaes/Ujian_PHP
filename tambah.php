@@ -5,19 +5,16 @@ if (!isset($_SESSION["user"])) {
     exit;
 }
 
-// Inisialisasi variabel kosong
 $nama = "";
 $kelas = "";
 $nilai = "";
 $error = [];
 
-// Proses form HANYA berjalan saat tombol Simpan ditekan
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $nama = trim($_POST["nama"] ?? "");
     $kelas = trim($_POST["kelas"] ?? "");
     $nilai = trim($_POST["nilai"] ?? "");
 
-    // Validasi isian form
     if ($nama === "") {
         $error[] = "Nama tidak boleh kosong.";
     }
@@ -30,7 +27,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $error[] = "Nilai harus berupa angka antara 0 hingga 100.";
     }
 
-    // Jika tidak ada error, simpan ke session dan pindah ke dashboard
     if (count($error) === 0) {
         $_SESSION["data_siswa"][] = [
             "nama" => $nama,
@@ -42,7 +38,6 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     }
 }
 
-// Tampilkan header
 $judul = "Tambah Siswa";
 require_once "includes/header.php";
 ?>
@@ -50,14 +45,12 @@ require_once "includes/header.php";
 <div style="background: white; padding: 20px; border-radius: 8px;">
     <h2>Tambah Data Siswa</h2>
     
-    <!-- Tempat menampilkan pesan error -->
     <?php 
     foreach ($error as $e) { 
         echo "<p style='color:red;'>$e</p>"; 
     } 
     ?>
 
-    <!-- Form HTML lengkap -->
     <form method="post" action="">
         <p>
             <label>Nama:</label><br>
